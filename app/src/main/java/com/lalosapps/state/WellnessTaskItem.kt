@@ -43,14 +43,14 @@ fun WellnessTaskItem(
 }
 
 @Composable
-fun WellnessTaskItem(taskName: String, modifier: Modifier = Modifier) {
+fun WellnessTaskItem(taskName: String, onClose: () -> Unit, modifier: Modifier = Modifier) {
     // Must be saveable to retain the checked state after the item leaves the composition when scrolling away from it
     var checkedState by rememberSaveable { mutableStateOf(false) }
     WellnessTaskItem(
         taskName = taskName,
         checked = checkedState,
         onCheckedChange = { checkedState = it },
-        onClose = {},
+        onClose = onClose,
         modifier = modifier
     )
 }
