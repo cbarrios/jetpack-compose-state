@@ -71,7 +71,9 @@ fun WaterCounter7(modifier: Modifier = Modifier) {
             if (showTask) {
                 WellnessTaskItem(
                     onClose = { showTask = false },
-                    taskName = "Have you taken your 15 minute walk today?"
+                    taskName = "Have you taken your 15 minute walk today?",
+                    checked = true,
+                    onCheckedChange = {}
                 )
             }
             Text(text = "You've had $count glasses.")
