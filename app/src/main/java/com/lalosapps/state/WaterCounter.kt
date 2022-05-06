@@ -19,7 +19,35 @@ import androidx.compose.ui.unit.dp
 /** It's a good practice to provide a default [Modifier] to all composable functions, as it increases reusability.
  *  It should appear as the first optional parameter in the parameter list, after all required parameters.
  */
+@Composable
+fun StatelessCounter(
+    count: Int,
+    onIncrement: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.padding(16.dp)) {
+        if (count > 0) {
+            Text("You've had $count glasses.")
+        }
+        Button(onClick = onIncrement, Modifier.padding(top = 8.dp), enabled = count < 10) {
+            Text("Add one")
+        }
+    }
+}
+
+// State Hoisting Benefits:
 @Preview(showBackground = true)
+@Composable
+fun StatefulCounter(modifier: Modifier = Modifier) {
+    var waterCount by rememberSaveable { mutableStateOf(0) }
+    // (1) Your stateless composable can now be reused
+    // (2) Your stateful composable function can provide the same state to multiple composable functions.
+    Column {
+        StatelessCounter(waterCount, { waterCount++ })
+        StatelessCounter(waterCount, { waterCount *= 2 })
+    }
+}
+
 @Composable
 fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
